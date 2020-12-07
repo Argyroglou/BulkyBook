@@ -23,7 +23,7 @@ namespace BulkyBook.Areas.Admin.Controllers
         public IActionResult Upsert(int? id)
         {
             Category category = new Category();
-            if(id == null)
+            if (id == null)
             {
                 //this is for create
                 return View(category);
@@ -37,7 +37,25 @@ namespace BulkyBook.Areas.Admin.Controllers
             return View(category);
         }
 
-
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public IActionResult Upsert(Category category)
+        {
+            if (ModelState.IsValid)
+            {
+                if (category.Id == 0)
+                {
+                    _unitOfWork.Category.Add(category);
+                }
+                else
+                {
+                    _unitOfWork.Category.Update(category);
+                }
+                _unitOfWork.Save();
+                return RedirectToAction(nameof(Index));
+            }
+            return View(category);
+        }
 
         #region API CALLS
 
@@ -46,7 +64,7 @@ namespace BulkyBook.Areas.Admin.Controllers
         {
             var allObj = _unitOfWork.Category.GetAll();
 
-            return Json(new { data=allObj});
+            return Json(new { data = allObj });
         }
         #endregion
     }
