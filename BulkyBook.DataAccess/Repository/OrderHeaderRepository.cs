@@ -8,7 +8,7 @@ using System.Text;
 
 namespace BulkyBook.DataAccess.Repository
 {
-    public class OrderHeaderRepository : Repository<Category>, IOrderHeaderRepository
+    public class OrderHeaderRepository : Repository<OrderHeader>, IOrderHeaderRepository
     {
         private readonly ApplicationDbContext _db;
         public OrderHeaderRepository(ApplicationDbContext db) : base(db)
