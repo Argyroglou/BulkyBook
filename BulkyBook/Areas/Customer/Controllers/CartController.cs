@@ -12,6 +12,7 @@ using System.Threading.Tasks;
 
 namespace BulkyBook.Areas.Customer.Controllers
 {
+    [Area("Customer")]
     public class CartController : Controller
     {
         private readonly IUnitOfWork _unitOfWork;
